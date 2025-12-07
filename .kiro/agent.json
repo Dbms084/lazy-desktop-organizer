@@ -1,0 +1,122 @@
+{
+  "name": "Desktop Organizer",
+  "version": "1.0.0",
+  "description": "Automatically organizes desktop files into categorized folders (Images, Docs, Code, etc.)",
+  "author": "Debosmita Majumdar",
+  "created": "2024-01-15",
+  "lastModified": "2024-01-15",
+  
+  "agent": {
+    "type": "automation",
+    "category": "file-management",
+    "language": "python",
+    "runtime": "python3",
+    "platform": ["windows", "macos", "linux"],
+    "dependencies": ["python>=3.7"],
+    
+    "capabilities": [
+      "file-organization",
+      "folder-creation",
+      "file-categorization",
+      "duplicate-handling",
+      "user-confirmation"
+    ]
+  },
+  
+  "tasks": [
+    {
+      "id": "organize-desktop",
+      "name": "Organize Desktop",
+      "description": "Organizes all files on desktop into categorized subfolders",
+      "type": "command",
+      "command": "python organizer.py",
+      "parameters": [],
+      "triggers": ["manual"],
+      "interactive": true,
+      "confirmationRequired": true
+    },
+    
+    {
+      "id": "organize-custom",
+      "name": "Organize Custom Folder",
+      "description": "Organizes files in a custom folder path",
+      "type": "command",
+      "command": "python organizer.py",
+      "parameters": [],
+      "triggers": ["manual"],
+      "interactive": true,
+      "confirmationRequired": true
+    },
+    
+    {
+      "id": "dry-run",
+      "name": "Dry Run (Simulation)",
+      "description": "Shows what would be organized without making changes",
+      "type": "script",
+      "script": "import os, sys; sys.path.insert(0, '.'); from organizer import organize_folder; print('[DRY RUN] Would organize files')",
+      "triggers": ["manual"],
+      "interactive": false
+    }
+  ],
+  
+  "configuration": {
+    "defaultPath": "~/Desktop",
+    "extensionMap": {
+      "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"],
+      "Docs": [".pdf", ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".txt"],
+      "Code": [".py", ".c", ".cpp", ".java", ".js", ".html", ".css"],
+      "Zips": [".zip", ".rar", ".7z"],
+      "Videos": [".mp4", ".mkv", ".mov", ".avi"],
+      "Audio": [".mp3", ".wav", ".m4a", ".flac"]
+    },
+    "safetyFeatures": {
+      "confirmationRequired": true,
+      "skipHiddenFiles": true,
+      "maxFileSizeMB": 100,
+      "backupBeforeMove": false
+    }
+  },
+  
+  "documentation": {
+    "setup": "1. Install Python 3.7+\n2. Run 'python organizer.py'\n3. Follow prompts",
+    "usage": "Run the script and confirm when prompted. Files will be moved to categorized folders.",
+    "notes": "Always backup important files before running. Use dry-run first if unsure.",
+    "troubleshooting": "If files don't move, check permissions. On macOS/Linux, you may need 'chmod +x organizer.py'"
+  },
+  
+  "kiroIntegration": {
+    "acceleratedDevelopment": [
+      "Generated initial file categorization logic",
+      "Suggested duplicate file handling strategy",
+      "Helped design interactive CLI prompts",
+      "Provided cross-platform path handling solutions"
+    ],
+    "testingAssistance": [
+      "Created test cases for various file types",
+      "Helped debug file permission issues",
+      "Suggested safety features and user confirmations"
+    ],
+    "optimizationTips": [
+      "Added batch processing for better performance",
+      "Suggested extension map for easy customization",
+      "Recommended error handling for edge cases"
+    ]
+  },
+  
+  "examples": [
+    {
+      "command": "python organizer.py",
+      "description": "Organize desktop files with interactive prompts"
+    },
+    {
+      "command": "python organizer.py --path ~/Downloads",
+      "description": "Organize Downloads folder instead (requires script modification)"
+    }
+  ],
+  
+  "monitoring": {
+    "logLevel": "INFO",
+    "logFile": ".kiro/organizer.log",
+    "metrics": ["filesMoved", "categoriesCreated", "executionTime"]
+  }
+}
